@@ -7,7 +7,6 @@ Group Chat App is a real-time group chat web application that allows users to jo
 - User authentication: Sign in with your Google account to access the chat rooms.
 - Join Chat: Enter a chat code to join a specific chat room and start chatting with other participants.
 - Real-time Messaging: Exchange messages with other participants in real time.
-- Audio Messages (optional): Record and send audio messages using the microphone.
 
 ## Technologies Used
 
