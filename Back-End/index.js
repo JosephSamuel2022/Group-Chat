@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
 	cors: {
-		origin: "https://groupchatreact.vercel.app/",
+		origin: "https://groupchatreact.vercel.app",
 		methods: ["GET", "POST"],
 	},
 });
