@@ -8,16 +8,26 @@ const Chat = ({ socket }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const [isMounted, setIsMounted] = useState(false); // Add this state
+
+	// Check if the component is mounted before navigating
+	useEffect(() => {
+		setIsMounted(true); // Component is mounted
+		return () => setIsMounted(false); // Component is unmounted
+	}, []);
+
 	useEffect(() => {
 		const username = sessionStorage.getItem("userName");
-		if (!username) {
+		if (isMounted && !username) {
+			// Check if component is mounted before navigating
 			navigate("/");
 		}
 
-		if (!socket || !socket.id) {
+		if (isMounted && (!socket || !socket.id)) {
+			// Check if component is mounted before navigating
 			navigate("/joinchat");
 		}
-	}, [navigate, socket]);
+	}, [isMounted, navigate, socket]);
 
 	const { room } = location.state || {};
 	const username = sessionStorage.getItem("userName");
@@ -46,25 +56,6 @@ const Chat = ({ socket }) => {
 	useEffect(() => {
 		socket.on("receive_message", (data) => {
 			setMessageList((list) => [...list, data]);
-		});
-
-		socket.on("receive_audio", (data) => {
-			const { room: receivedRoom, author, audio } = data;
-			if (receivedRoom === room) {
-				const audioBlob = new Blob([audio], { type: "audio/webm" });
-				const audioUrl = URL.createObjectURL(audioBlob);
-				setMessageList((list) => [
-					...list,
-					{
-						author: author,
-						audioUrl: audioUrl,
-						time:
-							new Date(Date.now()).getHours() +
-							":" +
-							new Date(Date.now()).getMinutes(),
-					},
-				]);
-			}
 		});
 	}, [socket, room]);
 
