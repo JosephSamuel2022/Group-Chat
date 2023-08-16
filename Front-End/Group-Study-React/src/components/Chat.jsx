@@ -8,26 +8,16 @@ const Chat = ({ socket }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const [isMounted, setIsMounted] = useState(false); // Add this state
-
-	// Check if the component is mounted before navigating
-	useEffect(() => {
-		setIsMounted(true); // Component is mounted
-		return () => setIsMounted(false); // Component is unmounted
-	}, []);
-
 	useEffect(() => {
 		const username = sessionStorage.getItem("userName");
-		if (isMounted && !username) {
-			// Check if component is mounted before navigating
+		if (!username) {
 			navigate("/");
 		}
 
-		if (isMounted && (!socket || !socket.id)) {
-			// Check if component is mounted before navigating
+		if (!socket || !socket.id) {
 			navigate("/joinchat");
 		}
-	}, [isMounted, navigate, socket]);
+	}, [navigate, socket]);
 
 	const { room } = location.state || {};
 	const username = sessionStorage.getItem("userName");
