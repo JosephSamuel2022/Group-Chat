@@ -8,6 +8,10 @@ Group Chat App is a real-time group chat web application that allows users to jo
 - Join Chat: Enter a chat code to join a specific chat room and start chatting with other participants.
 - Real-time Messaging: Exchange messages with other participants in real time.
 
+## Live Demo
+
+Experience the app in action: [Group Chat App](https://groupchatreact.vercel.app/)
+
 ## Technologies Used
 
 ### Front-End
